@@ -27,9 +27,13 @@ final class apple_music_jwt_generatorTests: XCTestCase {
         process.waitUntilExit()
 
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)
+        
+        guard let output = String(data: data, encoding: .utf8) else {
+            XCTFail()
+            return
+        }
 
-        XCTAssertEqual(output, "Hello, world!\n")
+        XCTAssertTrue(output.contains("A Swift command-line tool to generate JWT for Apple Music API"))
         #endif
     }
 
